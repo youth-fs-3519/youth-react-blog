@@ -7,7 +7,6 @@ import Post from "../../components/Post";
 //     posts = novoValor;
 // }
 
-
 function Home() {
     const [posts, setPosts] = useState([]);
 
@@ -24,14 +23,18 @@ function Home() {
     )
     
     return (
-        <>
-            <h1>Home</h1>
-            <div>
+        <div className="container">
+            <div className="row">
+                <div className="col">
+                    <h1>Home</h1>
+                </div>
+            </div>
+            <div className="row">
                 {posts.map((post, index) => (
                     <Post post={post} />
                 ))}
             </div>
-        </>
+        </div>
     )
 }
 
