@@ -29,7 +29,7 @@ function Home() {
                     <h1>Home</h1>
                 </div>
             </div>
-            <div className="row">
+            <div className="row gy-3">
                 {posts.map((post, index) => (
                     <Post post={post} />
                 ))}

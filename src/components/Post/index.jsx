@@ -1,21 +1,35 @@
+import { useEffect, useState } from 'react';
+import './index.scss'
+import { Link } from 'react-router';
+
 function Post({ post }) {
-    console.log(post);
-    // fazer request para
-    // jsonplaceholder.typicode.com/posts/1/comments
-    // guardar o resultado num state
-    // mostrar a quantidade de comentários
+    const [commentNumber, setCommentNumber] = useState(0)
+
+    const getComments = async () => {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`);
+        const responseJson = await response.json();
+        setCommentNumber(responseJson.length);
+    }
+
+    useEffect(() => {
+        getComments()
+    }, [])
 
     return (
         <div className="col-md-6">
-            <div className="card">
+            <Link to={`/post/${post.id}`} className="card post">
                 <div className="card-body">
                     <h5 className="card-title">
                         {post.title}
                     </h5>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" className="btn btn-primary">Go somewhere</a>
+                    <p className="card-text">
+                        {commentNumber} comentários    
+                    </p>
+                    <button className="btn btn-primary">
+                        Ver post completo
+                    </button>
                 </div>
-            </div>
+            </Link>
         </div>
     )
 }
