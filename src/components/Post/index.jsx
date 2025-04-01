@@ -4,25 +4,15 @@ import { Link } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 
 function Post({ post }) {
-    const [commentNumber, setCommentNumber] = useState(0)
-
-    const {} = useQuery({
+    const { data = [] } = useQuery({
         queryKey: ['comments', post.id],
         queryFn: async () => {
             const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`);
             return await response.json();
-        }
-    })
-
-    const getComments = async () => {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`);
-        const responseJson = await response.json();
-        setCommentNumber(responseJson.length);
-    }
-
-    useEffect(() => {
-        getComments()
-    }, [])
+        },
+        staleTime: Infinity,
+    });
+    const commentNumber = data.length;
 
     return (
         <div className="col-md-6">

@@ -21,17 +21,24 @@ function Home() {
         () => { getPosts() },
         []
     )
-    
+
     return (
         <div className="container">
             <div className="row">
-                <div className="col">
+                <div className="col-auto">
                     <h1>Home</h1>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <button className="btn btn-primary">
+                        Criar post
+                    </button>
                 </div>
             </div>
             <div className="row gy-3">
                 {posts.map((post, index) => (
-                    <Post post={post} />
+                    <Post key={post.id} post={post} />
                 ))}
             </div>
         </div>
