@@ -1,26 +1,17 @@
 import { useEffect, useState } from "react";
 import Post from "../../components/Post";
-
-// let posts = [];
-
-// const setPosts = (novoValor) => {
-//     posts = novoValor;
-// }
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 function Home() {
-    const [posts, setPosts] = useState([]);
-
-    const getPosts = async () => {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const responseJson = await response.json();
-        setPosts(responseJson)
-    }
-    // getPosts() // não pode
-
-    useEffect(
-        () => { getPosts() },
-        []
-    )
+    const { data: posts = [] } = useQuery({
+        queryKey: ['posts'],
+        queryFn: async () => {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+            return await response.json();
+        },
+        staleTime: Infinity,
+    });
 
     return (
         <div className="container">
@@ -31,9 +22,12 @@ function Home() {
             </div>
             <div className="row">
                 <div className="col">
-                    <button className="btn btn-primary">
+                    <Link  
+                        to={"/post/create"}
+                        className="btn btn-primary"
+                    >
                         Criar post
-                    </button>
+                    </Link>
                 </div>
             </div>
             <div className="row gy-3">
