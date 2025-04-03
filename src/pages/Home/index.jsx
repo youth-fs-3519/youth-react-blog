@@ -7,7 +7,7 @@ function Home() {
     const { data: posts = [] } = useQuery({
         queryKey: ['posts'],
         queryFn: async () => {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+            const response = await fetch(`https://api-todos.pamplona.io/posts`);
             return await response.json();
         },
         staleTime: Infinity,

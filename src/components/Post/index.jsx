@@ -7,7 +7,7 @@ function Post({ post }) {
     const { data = [] } = useQuery({
         queryKey: ['comments', post.id],
         queryFn: async () => {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`);
+            const response = await fetch(`https://api-todos.pamplona.io/posts/${post.id}/comments`);
             return await response.json();
         },
         staleTime: Infinity,
